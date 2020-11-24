@@ -1,0 +1,57 @@
+article {
+	max-width: 65em;
+	min-width: 60%;
+	margin-left: auto;
+	margin-right: auto;
+	line-height: 150%;
+	font-size: 115%;
+	padding-left: 2em;
+	padding-right: 2em;
+}
+
+article h2 {
+	font-size: 130%;
+}
+
+article h3 {
+	font-size: 130%;
+	font-weight: normal;
+}
+
+article .date {
+	text-align: right;
+	font-size: 85%;
+}
+
+nav {
+	text-align: left;
+}
+
+pre {
+	text-align: left;
+	background-color: #50505f;
+	max-width: 80%;
+	margin: auto;
+	padding: 1em;
+	font-family: monospace;
+	overflow: scroll;
+}
+
+@media only screen and (max-width: 45em) {
+	article {
+		width: 100vw;
+		box-sizing: border-box;
+		padding-left: 0.5em;
+		padding-right: 0.5em;
+	}
+
+	pre {
+		max-width: 100%;
+		margin: -0.5em;
+		padding: 0 0.5em 0 0.5em;
+	}
+
+	ul {
+		max-width: 100%;
+	}
+}

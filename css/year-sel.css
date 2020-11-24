@@ -1,0 +1,18 @@
+.nav-both {
+	display: flex;
+	justify-content: space-between;
+}
+
+.nav-right {
+	display: flex;
+	justify-content: space-between;
+	width: 50%;
+	margin-left: auto;
+}
+
+.nav-left {
+	display: flex;
+	justify-content: space-between;
+	width: 50%;
+	margin-right: auto;
+}

@@ -1,0 +1,27 @@
+article {
+	width: 60%;
+	margin-left: auto;
+	margin-right: auto;
+	line-height: 150%;
+	font-size: 115%;
+	padding-left: 2em;
+	padding-right: 2em;
+}
+
+article h2 {
+	font-size: 130%;
+	text-align: left;
+}
+
+@media only screen and (max-width: 65em) {
+	article {
+		width: 100vw;
+		box-sizing: border-box;
+		padding-left: 0.5em;
+		padding-right: 0.5em;
+	}
+
+	ul {
+		max-width: 100%;
+	}
+}
