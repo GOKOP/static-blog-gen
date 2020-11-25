@@ -8,10 +8,10 @@ for year in $(ls temp/years); do
 	year_n=$(grep " $year" temp/year_list | awk '{print $1}')
 
 	if [ $year_n = 1 ]; then
-		cat $1-templ/top.html | sed 's|^.*<!-- prev year !-->.*$||' > temp/top0
+		cat html/$1/top.html | sed 's|^.*<!-- prev year !-->.*$||' > temp/top0
 	else
 		prev_year=$(grep "$(echo $year_n-1 | bc) " temp/year_list | awk '{print $2}')
-		cat $1-templ/top.html | sed 's|<!-- prev year !-->|'$prev_year'|g' > temp/top0
+		cat html/$1/top.html | sed 's|<!-- prev year !-->|'$prev_year'|g' > temp/top0
 	fi
 
 	next_year=$(grep "$(echo $year_n+1 | bc) " temp/year_list | awk '{print $2}')
@@ -31,5 +31,6 @@ for year in $(ls temp/years); do
 	fi
 
 	cat temp/top2 | sed 's|<!-- year !-->|'$year'|' > temp/top3
-	cat temp/top3 temp/years/$year $1-templ/bottom.html > $1/$year.html
+	cat html/common/top-pre-css.html | sed 's|<!-- title !-->|'$year'|' > temp/top3
+	cat temp/top3 html/$1/css.html html/common/top-post-css.html temp/top3 temp/years/$year html/common/back-to-top.html html/common/footer.html > $1/$year.html
 done
