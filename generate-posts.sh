@@ -11,8 +11,9 @@ for file in $(ls posts-md); do
 	date=$(echo $file | sed 's|\.md||')
 	year=$(echo $date | sed 's|-.*||')
 	title="$(head -n 1 posts-md/$file | sed 's|# ||')"
-	cat post-templ/top.html | sed 's|<!-- post title !-->|'"$title"'|; s|<!-- year !-->|'$year'|; s|<!-- date !-->|'$date'|' > temp/top
-	cat temp/top temp/post post-templ/bottom.html > "posts/$date.html"
+	cat html/common/top-pre-css.html html/post/css.html html/common/top-post-css.html html/post/top.html > temp/top0
+	cat temp/top0 | sed 's|<!-- title !-->|'"$title"'|; s|<!-- year !-->|'"$year"'|; s|<!-- date !-->|'$date'|' > temp/top1
+	cat temp/top1 temp/post html/common/back-to-top.html html/common/footer.html > "posts/$date.html"
 done
 
 rm -r temp
