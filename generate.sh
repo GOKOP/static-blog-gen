@@ -1,3 +1,7 @@
+# check if there's anything to generate
+posts="$(ls posts-md)"
+[ -z "$posts" ] && echo "Write some posts first!" && exit
+
 [ -d site ] && rm -r site
 mkdir site
 
