@@ -20,6 +20,6 @@ for file in $(ls posts-md); do
 	prev_year=$year
 done
 
-./finish-years.sh roll
+script/finish-years.sh roll
 
 rm -r temp

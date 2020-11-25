@@ -45,6 +45,6 @@ done
 
 echo "</ul>" >> temp/years/$year
 
-./finish-years.sh index
+script/finish-years.sh index
 
 rm -r temp
