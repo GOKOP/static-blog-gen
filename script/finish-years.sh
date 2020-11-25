@@ -1,8 +1,8 @@
 #!/bin/sh
 # This is meant to be called only from within generate-index.sh or generate-roll.sh
 
-[ -d $1 ] && rm -r $1
-mkdir $1
+[ -d site/$1 ] && rm -r site/$1
+mkdir site/$1
 
 for year in $(ls temp/years); do
 	year_n=$(grep " $year" temp/year_list | awk '{print $1}')
@@ -32,5 +32,5 @@ for year in $(ls temp/years); do
 
 	cat temp/top2 | sed 's|<!-- year !-->|'$year'|' > temp/top3
 	cat html/common/top-pre-css.html | sed 's|<!-- title !-->|'$year'|' > temp/top4
-	cat temp/top4 html/$1/css.html html/common/top-post-css.html temp/top3 temp/years/$year html/common/back-to-top.html html/common/footer.html > $1/$year.html
+	cat temp/top4 html/$1/css.html html/common/top-post-css.html temp/top3 temp/years/$year html/common/back-to-top.html html/common/footer.html > site/$1/$year.html
 done
