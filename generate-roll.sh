@@ -13,13 +13,13 @@ for file in $(ls posts-md); do
 		year_n=$(echo $year_n+1 | bc)
 		echo "$year_n $year" >> temp/year_list
 
-		cat roll-templ/post-head.html | sed 's|<!-- date !-->|'$date'|' > temp/years/$year
+		cat html/roll/post-head.html | sed 's|<!-- date !-->|'$date'|' > temp/years/$year
 		pandoc posts-md/$file -f markdown -t html >> temp/years/$year
-		cat roll-templ/post-bott.html >> temp/years/$year
+		cat html/common/back-to-top.html >> temp/years/$year
 	else
-		cat roll-templ/post-head.html | sed 's|<!-- date !-->|'$date'|' >> temp/years/$year
+		cat html/roll/post-head.html | sed 's|<!-- date !-->|'$date'|' >> temp/years/$year
 		pandoc posts-md/$file -f markdown -t html >> temp/years/$year
-		cat roll-templ/post-bott.html >> temp/years/$year
+		cat html/common/back-to-top.html >> temp/years/$year
 	fi
 	
 	prev_year=$year
