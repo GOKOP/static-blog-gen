@@ -4,6 +4,7 @@ mkdir site
 script/generate-posts.sh
 script/generate-index.sh
 script/generate-roll.sh
+script/generate-site-index.sh
 
 cp -r css site/
 
