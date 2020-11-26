@@ -1,18 +1,16 @@
-.nav-both {
-	display: flex;
-	justify-content: space-between;
+nav {
+	display: grid;
+	grid-template-columns: 1fr auto 1fr;
 }
 
-.nav-right {
-	display: flex;
-	justify-content: space-between;
-	width: 50%;
+nav .right {
 	margin-left: auto;
 }
 
-.nav-left {
-	display: flex;
-	justify-content: space-between;
-	width: 50%;
+nav .left {
 	margin-right: auto;
+}
+
+.nav-right .center {
+	grid-column-start: 2;
 }
