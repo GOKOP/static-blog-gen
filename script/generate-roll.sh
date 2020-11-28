@@ -5,7 +5,7 @@ mkdir -p temp/years
 
 year_n=0
 
-for file in $(ls posts-md); do
+for file in $(ls -r posts-md); do
 	date=$(echo $file | sed 's|_.*||; s|\.md||')
 	year=$(echo $date | sed 's|-.*||')
 	html_file=$(echo $file | sed 's|\.md|.html|')
