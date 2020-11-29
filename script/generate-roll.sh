@@ -1,7 +1,6 @@
 #!/bin/sh
 
-[ -d temp ] && rm -r temp
-mkdir -p temp/years
+[ ! -d temp/years ] && mkdir -p temp/years
 
 year_n=0
 
@@ -16,12 +15,10 @@ for file in $(ls -r posts-md); do
 	fi
 	sed 's|<!-- date !-->|'$date'|' html/roll/post-head.html > temp/top
 	sed 's|<!-- post !-->|'$html_file'|' temp/top >> temp/years/$year
-	pandoc posts-md/$file -f markdown -t html >> temp/years/$year
+	cat temp/posts/$html_file >> temp/years/$year
 	cat html/common/back-to-top.html >> temp/years/$year
 	
 	prev_year=$year
 done
 
 script/finish-years.sh roll
-
-rm -r temp

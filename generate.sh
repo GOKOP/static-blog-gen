@@ -5,9 +5,13 @@ posts="$(ls posts-md)"
 [ -d site ] && rm -r site
 mkdir site
 
+[ -d temp ] && rm -r temp
+mkdir temp
+
+script/convert-posts.sh
 script/generate-posts.sh
-script/generate-index.sh
 script/generate-roll.sh
+script/generate-index.sh
 script/generate-site-index.sh
 
 cp -r css site/
