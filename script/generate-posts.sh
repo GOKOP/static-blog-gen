@@ -13,7 +13,7 @@ for file in $(ls posts-md); do
 	title="$(head -n 1 posts-md/$file | sed 's|# ||')"
 	html_file=$(echo $file | sed 's|\.md|.html|')
 	cat html/common/top-pre-css.html html/post/css.html html/common/top-post-css.html html/post/top.html > temp/top0
-	cat temp/top0 | sed 's|<!-- title !-->|'"$title"'|; s|<!-- year !-->|'"$year"'|; s|<!-- date !-->|'$date'|' > temp/top1
+	sed 's|<!-- title !-->|'"$title"'|; s|<!-- year !-->|'"$year"'|; s|<!-- date !-->|'$date'|' temp/top0 > temp/top1
 	cat temp/top1 temp/post html/common/back-to-top.html html/common/footer.html > "site/posts/$html_file"
 done
 

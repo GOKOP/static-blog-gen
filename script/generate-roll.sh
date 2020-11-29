@@ -14,8 +14,8 @@ for file in $(ls -r posts-md); do
 		year_n=$(echo $year_n+1 | bc)
 		echo "$year_n $year" >> temp/year_list
 	fi
-	cat html/roll/post-head.html | sed 's|<!-- date !-->|'$date'|' > temp/top
-	cat temp/top | sed 's|<!-- post !-->|'$html_file'|' >> temp/years/$year
+	sed 's|<!-- date !-->|'$date'|' html/roll/post-head.html > temp/top
+	sed 's|<!-- post !-->|'$html_file'|' temp/top >> temp/years/$year
 	pandoc posts-md/$file -f markdown -t html >> temp/years/$year
 	cat html/common/back-to-top.html >> temp/years/$year
 	
