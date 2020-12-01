@@ -11,6 +11,6 @@ nav .left {
 	margin-right: auto;
 }
 
-.nav-right .center {
+.center {
 	grid-column-start: 2;
 }
