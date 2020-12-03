@@ -8,6 +8,16 @@ mkdir site
 [ -d temp ] && rm -r temp
 mkdir temp
 
+# is posts-md its own git repo?
+dir="$(pwd)"
+cd posts-md
+toplevel="$(git rev-parse --show-toplevel 2>/dev/null)"
+excode=$?
+cd "$dir"
+[ $excode != 0 ] && script/get-post-dates.sh || \
+[ "$toplevel" != "$dir/posts-md" ] && script/get-post-dates.sh || \
+script/get-post-dates-git.sh
+
 script/convert-posts.sh
 script/generate-posts.sh
 script/generate-roll.sh
