@@ -14,17 +14,16 @@ for file in $(ls -r posts-md); do
 		year_n=$(echo $year_n+1 | bc)
 		echo "$year_n $year" >> temp/year_list
 	fi
-	sed 's|<!-- date !-->|'$date'|' html/roll/post-head.html > temp/top0
+
+	sed 's|<!-- date !-->|'$date'|; s|<!-- post !-->|'$html_file'|' html/roll/post-head.html > temp/top
 
 	if [ -z $edit_date ]; then
-		sed 's|.*<!-- edit date !-->.*||' temp/top0 > temp/top1
+		sed 's|.*<!-- edit date !-->.*||' temp/top >> temp/years/$year
 	else
-		sed 's|<!-- edit date !-->|'$edit_date'|' temp/top0 > temp/top1
+		sed 's|<!-- edit date !-->|'$edit_date'|' temp/top >> temp/years/$year
 	fi
 
-	sed 's|<!-- post !-->|'$html_file'|' temp/top1 >> temp/years/$year
-	cat temp/posts/$html_file >> temp/years/$year
-	cat html/common/back-to-top.html >> temp/years/$year
+	cat temp/posts/$html_file html/common/back-to-top.html >> temp/years/$year
 	
 	prev_year=$year
 done
