@@ -7,6 +7,7 @@ Features:
 - rolling blog page
 - post index
 - separately written main page
+- if using git to keep track of the md files, the script reads dates (and edit dates) from commits
 
 This isn't the final state of this script, but I don't plan any breaking changes.
 If you like minimal websites and are a bit weird, this is probably a tool for you.
@@ -29,13 +30,28 @@ Why not?
 - awk
 - bc (apparently these four aren't coreutils, I was surprised)
 - pandoc
+- git (optional)
 
 ## Usage
+
+### Without git
 
 1. Create a directory called "posts-md"
 2. Add posts there, filenames in the format `YYYY-MM-DD_whatever.md` or `YYY-MM-DD.md` \
 	(the resulting html filename later is gonna be this except with `.html` instead of `.md`)\
 	The first line of the file should contain a header with the title, like `# title of the post`.
+3. From the main directory of this repo, run `./generate.sh`. The website will appear in a folder called "site".\
+	In the example html all paths are relative so you can copy contents of this folder into any location of your website.
+
+### With git
+
+If you use a git to keep track of the `.md` posts, this script takes advantage of that and reads git commit dates.
+Because of that there's no need to specify the date in the filename, and the script will also get the last edit date for each post.
+
+1. Create a directory called "posts-md" and initialize a git repo in it
+2. Add and commit posts there, filenames can be anything as long as they end with `.md` and don't contain spaces. 
+	The resulting html file will be the same name but with `.html` extension.
+	The first line if the file should contain a header with the title, like `# title of thte post`.
 3. From the main directory of this repo, run `./generate.sh`. The website will appear in a folder called "site".\
 	In the example html all paths are relative so you can copy contents of this folder into any location of your website.
 
