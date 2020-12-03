@@ -45,7 +45,7 @@ Why not?
 
 ### With git
 
-If you use a git to keep track of the `.md` posts, this script takes advantage of that and reads git commit dates.
+If you use git to keep track of the `.md` posts, this script takes advantage of that and reads git commit dates.
 Because of that there's no need to specify the date in the filename, and the script will also get the last edit date for each post.
 
 1. Create a directory called "posts-md" and initialize a git repo in it
