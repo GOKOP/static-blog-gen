@@ -18,5 +18,5 @@ for file in $(ls posts-md); do
 		sed 's|<!-- edit date !-->|'$edit_date'|' temp/top1 > temp/top2
 	fi
 
-	cat temp/top2 temp/posts/$(echo $file | sed 's|.md|.html|') html/common/back-to-top.html html/common/footer.html > "site/posts/$html_file"
+	cat temp/top2 temp/posts/$html_file html/common/back-to-top.html html/common/footer.html > "site/posts/$html_file"
 done
