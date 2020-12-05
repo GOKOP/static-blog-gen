@@ -1,12 +1,12 @@
 #!/bin/sh
 
-[ -d temp ] && rm -r temp
-mkdir -p temp/years
+[ -d temp/years ] && rm -r temp/years
+mkdir temp/years
 
 year_n=0
 
 for file in $(ls -r posts-md); do
-	date=$(echo $file | sed 's|_.*||; s|\.md||')
+	date=$(head -n1 temp/postdata/$file)
 	year=$(echo $date | sed 's|-.*||')
 	month=$(echo $date | sed 's|....-||; s|-..$||')
 	month_word=$(grep $month months | awk '{print $2}')
