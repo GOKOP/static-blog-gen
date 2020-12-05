@@ -51,7 +51,7 @@ Because of that there's no need to specify the date in the filename, and the scr
 1. Create a directory called "posts-md" and initialize a git repo in it
 2. Add and commit posts there, filenames can be anything as long as they end with `.md` and don't contain spaces. 
 	The resulting html file will be the same name but with `.html` extension.
-	The first line if the file should contain a header with the title, like `# title of thte post`.
+	The first line of the file should contain a header with the title, like `# title of the post`.
 3. From the main directory of this repo, run `./generate.sh`. The website will appear in a folder called "site".\
 	In the example html all paths are relative so you can copy contents of this folder into any location of your website.
 
