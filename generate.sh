@@ -98,7 +98,7 @@ finish_years() {
 		# assign a css class to the nav element so it can be styled accordingly to what's inside
 		# (this is done purely to make the example html look the way I imagined it lol)
 		if [ $year_n = 1 ]; then
-			sed 's|<!-- nav class !-->|nav-laft|' temp/top1 > temp/top2
+			sed 's|<!-- nav class !-->|nav-left|' temp/top1 > temp/top2
 		elif [ -z $next_year ]; then
 			sed 's|<!-- nav class !-->|nav-right|' temp/top1 > temp/top2
 		else
