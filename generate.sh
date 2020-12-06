@@ -19,15 +19,16 @@ get_post_dates_git() {
 		cd posts-md
 		for commit in $(git log --oneline --reverse | awk '{print $1}'); do
 			date=$(git diff-tree --root --format=%cs $commit | head -n1)
-			files="$(git diff-tree --root --no-commit-id --name-only $commit)"
-		
-			for file in $files; do
-				if [ ! -f ../temp/postdata/$file ]; then
-					echo $date > ../temp/postdata/$file
-					echo "" >> ../temp/postdata/$file
+			files="$(git diff-tree --root --no-commit-id --name-only -r $commit)"
+
+			for file in $(echo $files | grep "$1"); do
+				[ -z $1 ] && filename=$file || filename=$(echo $file | sed 's|'$1'||')
+				if [ ! -f ../temp/postdata/$filename ]; then
+					echo $date > ../temp/postdata/$filename
+					echo "" >> ../temp/postdata/$filename
 				else
-					sed '2s|.*|'$date'|' ../temp/postdata/$file > ../temp/$file
-					mv ../temp/$file ../temp/postdata/$file
+					sed '2s|.*|'$date'|' ../temp/postdata/$filename > ../temp/$filename
+					mv ../temp/$filename ../temp/postdata/$filename
 				fi
 			done
 		done
@@ -219,14 +220,21 @@ mkdir site
 mkdir temp
 
 # is posts-md its own git repo?
-dir="$(pwd)"
 cd posts-md
 toplevel="$(git rev-parse --show-toplevel 2>/dev/null)"
 excode=$?
-cd "$dir"
-[ $excode != 0 ] && get_post_dates || \
-[ "$toplevel" != "$dir/posts-md" ] && get_post_dates || \
-get_post_dates_git
+cd ..
+
+if [ $excode != 0 ]; then 
+	get_post_dates
+elif [ "$toplevel" = "$(pwd)/posts-md" ]; then
+	get_post_dates_git
+else
+	cd posts-md
+	post_path="$(echo $(pwd) | sed 's|'$(git rev-parse --show-toplevel)'/||; s|$|/|')"
+	cd ..
+	get_post_dates_git "$post_path"
+fi
 
 convert_posts
 generate_posts

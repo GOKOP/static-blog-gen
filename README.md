@@ -49,6 +49,7 @@ If you use git to keep track of the `.md` posts, this script takes advantage of 
 Because of that there's no need to specify the date in the filename, and the script will also get the last edit date for each post.
 
 1. Create a directory called "posts-md" and initialize a git repo in it
+	* Alternatively, you can have the entire script in a git repo as long as it has commits with your posts (in posts-md ofc)
 2. Add and commit posts there, filenames can be anything as long as they end with `.md` and don't contain spaces. 
 	The resulting html file will be the same name but with `.html` extension.
 	The first line of the file should contain a header with the title, like `# title of the post`.
