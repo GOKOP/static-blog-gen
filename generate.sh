@@ -21,7 +21,10 @@ get_post_dates_git() {
 			date=$(git diff-tree --root --format=%cs $commit | head -n1)
 			files="$(git diff-tree --root --no-commit-id --name-only -r $commit)"
 
-			for file in $(echo $files | grep "$1"); do
+			for file in $files; do
+				# just doing grep on the entire thing is not an option because files are in one line
+				[ -z $(echo $file | grep $1) ] && continue
+
 				[ -z $1 ] && filename=$file || filename=$(echo $file | sed 's|'$1'||')
 				if [ ! -f ../temp/postdata/$filename ]; then
 					echo $date > ../temp/postdata/$filename
