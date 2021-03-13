@@ -53,7 +53,6 @@ Because of that there's no need to specify the date in the filename, and the scr
 2. Add and commit posts there, filenames can be anything as long as they end with `.md` and don't contain spaces. 
 	The resulting html file will be the same name but with `.html` extension.
 	The first line of the file should contain a header with the title, like `# title of the post`.
-	IMPORTANT: Make sure that filenames will allow `ls` to display them in chronological order, either by keeping the dates or just numbering posts.
 3. From the main directory of this repo, run `./generate.sh`. The website will appear in a folder called "site".\
 	In the example html all paths are relative so you can copy contents of this folder into any location of your website.
 

@@ -8,11 +8,15 @@ get_post_dates() {
 		date=$(echo $file | sed 's|_.*||; s|\.md||')
 		echo $date > temp/postdata/$file
 	done
+
+	ls posts-md -r > temp/posts-antichrono
 }
 
 get_post_dates_git() {
 	[ -d temp/postdata ] && rm -r temp/postdata
 	mkdir temp/postdata
+
+	touch temp/posts-chrono
 
 	# subshell so as not to cd back
 	(
@@ -22,7 +26,6 @@ get_post_dates_git() {
 			files="$(git diff-tree --root --no-commit-id --name-only -r $commit)"
 
 			for file in $files; do
-				# just doing grep on the entire thing is not an option because files are in one line
 				[ ! -z $1] && [ -z $(echo $file | grep $1) ] && continue
 
 				[ -z $1 ] && filename=$file || filename=$(echo $file | sed 's|'$1'||')
@@ -33,9 +36,13 @@ get_post_dates_git() {
 					sed '2s|.*|'$date'|' ../temp/postdata/$filename > ../temp/$filename
 					mv ../temp/$filename ../temp/postdata/$filename
 				fi
+				[ -z $(grep $filename ../temp/posts-chrono) ] && echo $filename >> ../temp/posts-chrono
 			done
 		done
 	)
+
+	tac temp/posts-chrono > temp/posts-antichrono
+	rm temp/posts-chrono
 }
 
 # converts markdown to html
@@ -43,8 +50,8 @@ convert_posts() {
 	[ -d temp/posts ] && rm -r temp/posts
 	mkdir temp/posts
 
-	for file in $(ls posts-md); do
-		pandoc posts-md/$file -f markdown -t html -o temp/posts/$(echo $file | sed 's|.md$|.html|')
+	for file in $(cat temp/posts-antichrono); do
+		[ -f posts-md/$file ] && pandoc posts-md/$file -f markdown -t html -o temp/posts/$(echo $file | sed 's|.md$|.html|')
 	done
 }
 
@@ -52,7 +59,8 @@ convert_posts() {
 generate_posts() {
 	mkdir site/posts
 
-	for file in $(ls posts-md); do 
+	for file in $(cat temp/posts-antichrono); do 
+		[ ! -f posts-md/$file ] && continue
 		date=$(head -n1 temp/postdata/$file)
 		[ $(wc -l < temp/postdata/$file) = 2 ] && edit_date=$(tail -n1 temp/postdata/$file)
 		year=$(echo $date | sed 's|-.*||')
@@ -122,7 +130,9 @@ generate_roll() {
 	# for counting years - done to determine if the current year is the first or the last one later
 	year_n=0
 	
-	for file in $(ls -r posts-md); do
+	for file in $(cat temp/posts-antichrono); do
+		[ ! -f posts-md/$file ] && continue
+
 		date=$(head -n1 temp/postdata/$file)
 		[ $(wc -l < temp/postdata/$file) = 2 ] && edit_date=$(tail -n1 temp/postdata/$file)
 		year=$(echo $date | sed 's|-.*||')
@@ -157,7 +167,9 @@ generate_index() {
 	year_n=0
 	prev_year=-1
 	
-	for file in $(ls -r posts-md); do
+	for file in $(cat temp/posts-antichrono); do
+		[ ! -f posts-md/$file ] && continue
+
 		date=$(head -n1 temp/postdata/$file)
 		year=$(echo $date | sed 's|-.*||')
 		month=$(echo $date | sed 's|....-||; s|-..$||')
